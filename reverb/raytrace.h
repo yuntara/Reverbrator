@@ -13,7 +13,7 @@ namespace raytrace {
 		virtual float getScatIntensity();
 		virtual Reflection getReflection(Ray* ray);
 	};
-	class Plane: Object {
+	class Plane: public Object {
 	private:
 		vector3Df c;//center point
 		vector3Df v;//normal vector
