@@ -1,7 +1,14 @@
 #pragma once
+#include <vector>
+#include <list>
+#include <functional>
+
 #include "vector.h"
 
+using namespace mymath;
+
 namespace raytrace {
+
 	class Object {
 	private:
 		float Reflectance;
@@ -12,28 +19,34 @@ namespace raytrace {
 		virtual float getScatSpreading();
 		virtual float getScatIntensity();
 		virtual Reflection getReflection(Ray* ray);
+		Object();
+		~Object();
 	};
 	class Plane: public Object {
 	private:
 		vector3Df c;//center point
 		vector3Df v;//normal vector
 	public:
-		
+		Plane();
+		~Plane();
 
 	};
+	class Reflection {
+
+	};
+
 	class Room {
 	private:
 		std::vector<Plane> planes;
 
 	public:
 		Plane* addPlane();
+		Reflection* getReflection(Ray* ray);
 		Room();
 		~Room();
 
 	};
-	class Reflection {
 
-	};
 	class Ray {
 	private:
 		float intensity;
@@ -45,30 +58,28 @@ namespace raytrace {
 	};
 	class TraceEvent {
 	private:
-		Tracer* parent;
 		Ray* ray;
+		bool doReflect;
+		bool doScatter;
 	public:
-		Ray* getRay();
+		Ray* getRay() { return ray; }
+		void setRay(Ray* _ray) { ray = _ray; }
 
-		void transact();
-	};
-	class Tracer {
-	private:
-		Room* room;
-		std::list<Ray> rays;
-	public:
-		Tracer(Room* sourceRoom) :room(sourceRoom) {
+		bool getDoReflect() { return doReflect; }
+		void setDoReflect(bool _doReflect) { doReflect = true; }
 
-		}
-		TraceEvent* get();
+		bool getDoScatter() { return doScatter; }
+		void setDoScattert(bool _doScatter) { doScatter = true; }
+
+		
 	};
+
+	typedef std::function<bool(TraceEvent* e)> TraceCallback;
 	class RayTrace {
 	private:
 		Room room;
 	public:
-		RayTrace(Room& sourceRoom):room(sourceRoom) {
-
-		}
-		Tracer* trace(Ray);
+		RayTrace(Room& sourceRoom);
+		void trace(Ray ray,TraceCallback func);
 	};
 }

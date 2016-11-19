@@ -5,6 +5,7 @@ namespace mymath {
 	private:
 		T fx, fy, fz;
 	public:
+		Vector3D();
 		Vector3D(T ax, T ay, T az);
 		virtual ~Vector3D();
 		Vector3D<T> operator +(T b);

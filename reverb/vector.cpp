@@ -2,6 +2,10 @@
 
 namespace mymath {
 	template<typename T>
+	Vector3D<T>::Vector3D()
+	{
+	}
+	template<typename T>
 	Vector3D<T>::Vector3D(T ax, T ay, T az) :fx(ax), fy(ay), fz(az) {
 
 	}
