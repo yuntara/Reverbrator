@@ -34,7 +34,7 @@ namespace raytrace {
 		}
 		Reflection ref;
 		ref.intersection = ray->origin + min_dist * ray->direction;
-		//ref.reflection = ray->direction - 2 * (ray->direction | intersect_plane->v)*intersect_plane->v;
+		ref.reflection = ray->direction - 2 * (ray->direction | intersect_plane->v)*intersect_plane->v;
 		ref.reflectance = intersect_plane->getReflectance();
 		return ref;
 	}
